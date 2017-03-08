@@ -1,6 +1,7 @@
 import requests
 from flask import Flask, request
 
+requestCount = 0
 app = Flask(__name__)
 
 # SENDING A POST REQUEST
@@ -18,7 +19,9 @@ def result():
 # SIMPLE ROUTE
 @app.route("/")
 def hello():
-    return "Hello World!"
+    global requestCount
+    requestCount += 1
+    return "Hello World! Backend recieved " + str(requestCount) + " requests."
 
 
 if __name__ == "__main__":
