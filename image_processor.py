@@ -3,7 +3,7 @@ import cv2
 
 
 def init_camera(id=0):
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(id)
     cap.set(3, 320)  # these are optional
     cap.set(4, 240)
     return cap
