@@ -5,3 +5,5 @@ flask_cors
 configparser
 numpy
 opencv-python
+falcon
+gunicorn
