@@ -5,38 +5,45 @@ from flask_cors import CORS
 from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
-from tornado.ioloop import IOLoop
-# Import utilities
-import utilities
 # Import image processor
 import image_processor as im
 import os
+import pprint
+import json
+import server_tools as st
 
 cwd = os.getcwd()
 cam = im.init_camera(0)
 requestCount = 0
 app = Flask(__name__)
 CORS(app)
-# SENDING A POST REQUEST
-r = requests.post("http://httpbin.org/post", data={'foo': 'bar'})
-print(r.text)
+print("Initiated.")
+
+
+# RECIEVING GET REQUEST
+@app.route('/get', methods=['GET'])
+def result():
+    # print(request.form['foo'])  # should display 'bar'
+    pprint.pprint(request.args)  # should display 'bar'
+    return 'Received !'  # response to your request.
 
 
 # RECIEVING POST REQUEST
 @app.route('/post', methods=['POST'])
-def result():
-    print(request.form['foo'])  # should display 'bar'
-    return 'Received !'  # response to your request.
+def resultp():
+    st.parse_command(request)
+    return json.dumps(["Recieved!"])
 
 
 # SIMPLE ROUTE
 @app.route("/")
 def hello():
-    global requestCount, cam
-    im.read_camera(cam)
-    requestCount += 1
-    return jsonify(["Hello World! Backend recieved " + str(requestCount) + " requests."])
-    # return send_file("D:\\lumino\\web\\photoFromCam.jpg", mimetype='image/gif')
+    # somestuff
+    print("SIMPLE ROUTE")
+
+
+def stop_tornado():
+    IOLoop.instance().stop()
 
 
 if __name__ == "__main__":

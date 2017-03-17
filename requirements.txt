@@ -3,3 +3,5 @@ requests
 tornado
 flask_cors
 configparser
+numpy
+opencv-python
