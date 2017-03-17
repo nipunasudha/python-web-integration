@@ -1,4 +1,3 @@
-import requests
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 # Tornado serving utility
@@ -20,30 +19,11 @@ CORS(app)
 print("Initiated.")
 
 
-# RECIEVING GET REQUEST
-@app.route('/get', methods=['GET'])
-def result():
-    # print(request.form['foo'])  # should display 'bar'
-    pprint.pprint(request.args)  # should display 'bar'
-    return 'Received !'  # response to your request.
-
-
 # RECIEVING POST REQUEST
 @app.route('/post', methods=['POST'])
 def resultp():
     st.parse_command(request)
     return json.dumps(["Recieved!"])
-
-
-# SIMPLE ROUTE
-@app.route("/")
-def hello():
-    # somestuff
-    print("SIMPLE ROUTE")
-
-
-def stop_tornado():
-    IOLoop.instance().stop()
 
 
 if __name__ == "__main__":
